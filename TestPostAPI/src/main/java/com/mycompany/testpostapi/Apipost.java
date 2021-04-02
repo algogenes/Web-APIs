@@ -19,27 +19,29 @@ public class Apipost {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         var values = new HashMap<String, String>() {{
-            put("name", "welco");
-            put ("occupation", "dancer");
-            
+            put("id", "19");
+            put ("email", "samantha.holt@reqres.in");
+            put ("first_name", "Samantha ");
+            put ("last_name", "Juliet");
+            put ("avatar", "https://reqres.in/img/faces/19-image.jpg");
         }};
 
         var objectMapper = new ObjectMapper();
         String requestBody = objectMapper
                 .writeValueAsString(values);
         
-        System.out.println(requestBody);
+        System.out.println("The full request being sent is" + requestBody);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://httpbin.org/post"))
+                .uri(URI.create("https://reqres.in/api/users"))
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 
         HttpResponse<String> response = client.send(request,
                 HttpResponse.BodyHandlers.ofString());
 
-        System.out.println(response.body());
+        System.out.println("The full response received is" + response.body());
     }
     
     
